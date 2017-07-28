@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script src="angular.js"></script>
+    </head>
+
+    <body ng-app="collectionModule">
+
+        <script>
+             angular.module('collectionModule',[])
+                    .controller('collectionController', function($scope) {
+                        
+                        $scope.students = [{
+                            name : "mandar",
+                            rating : 9,
+                            cgpa : 6.89
+                        },{
+                            name : "pankaj",
+                            rating : 8,
+                            cgpa : 7.94
+                        },{
+                            name : "namrata",
+                            rating : 10,
+                            cgpa : 8.26
+                        },];
+                    })
+        </script>
+
+        <section ng-controller="collectionController">
+            <table style="border: 2px solid #000">
+                <th style="border-bottom: 1px solid #000;">Name</th>
+                <th style="border-bottom: 1px solid #000;">Rating</th>
+                <th style="border-bottom: 1px solid #000;">CGPA</th>
+                
+                <tr ng-repeat="student in students">
+                    <td style="border-left: 1px solid #000; border-right: 1px solid #000">{{student.name}}</td>
+                    <td style="border-left: 1px solid #000; border-right: 1px solid #000">{{student.rating}}</td>
+                    <td style="border-left: 1px solid #000; border-right: 1px solid #000">{{student.cgpa | number : 1}}</td>
+                </tr>
+            </table>
+        </section>
+    </body>
+</html>

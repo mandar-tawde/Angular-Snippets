@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="custom.css" rel="stylesheet">
+    <script src="angular.js"></script>
+    <script src="module.js"></script>
+    <script src="service.js"></script>
+</head>
+
+<body ng-app="studentModule" ng-controller="studentDataController">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                <div class="customDiv">
+                    <h3>Students Information</h3><br>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Roll No</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Date</th>
+                                    <th>Gender</th>
+                                    <th>Delete</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="student in students">
+                                <tr>
+                                    <td>{{student.rollNo}}</td>
+                                    <td>{{student.name}}</td>
+                                    <td>{{student.age}}</td>
+                                    <td>{{student.email}}</td>
+                                    <td>{{student.date}}</td>
+                                    <td>{{student.isMale ? 'Male' : 'Female'}}</td>
+                                    <td><input type="image" src="delete.ico" width="30px" height="30px" id="{{student.rollNo}}" ng-click="deletePressed($event)"></td>
+                                    <td><input type="image" src="edit.ico" width="30px" height="30px" id="{{student.rollNo}}" ng-click="editPressed($event)"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-left:  20px;  margin-right: 50px;">
+                        <img src="spinner1.gif" width="50" height="50" ng-show="spinner1">
+                    </div><br><br>
+
+                    <div ng-bind="msgDivShow" style="color: {{msgDivShowColor}}"></div><br>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <div class="customDiv">
+                    <h3>Information Editor</h3><br>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: left">
+                        Roll No<br><br> Name
+                        <br><br> Age
+                        <br><br> Email
+                        <br><br> Date
+                        <br><br> Gender
+                    </div>
+
+                    <div class="col-lg-7 col-md-8 col-sm-8 col-xs-12" style="text-align: left; padding-left: 2px;">
+                        <input type="number" style="height: 25px" ng-model="rollNo"><br><br>
+                        <input type="text" style="height: 25px" ng-model="name"><br><br>
+                        <input type="number" style="height: 25px" ng-model="age"><br><br>
+                        <input type="email" style="height: 25px" ng-model="email"><br><br>
+                        <input type="date" style="height: 25px; width: 220px" ng-model="date"><br><br>
+                        <input type="radio" name="gender" value="male" ng-model="gender">Male<br>
+                        <input type="radio" name="gender" value="female" ng-model="gender">Female<br><br>
+                    </div>
+
+                    <img src="spinner1.gif" id="delay2" width="50" height="50" ng-show="spinner2"><br>
+                    <button id="addBtn" style="width: 90px; margin-bottom: 10px;" ng-show="addButton" ng-click="addClicked()">Add</button>
+                    <button id="editBtn" style="width: 90px; margin-bottom: 10px;" ng-show="updateButton" ng-click="updateClicked()">Update</button>
+                    <button id="cancelBtn" style="width: 90px; margin-bottom: 10px;" ng-show="cancelButton" ng-click="cancelClicked()">Cancel</button>
+
+                    <br><br>
+                    <div ng-bind="msgDivEdit" style="color: {{msgDivEditColor}}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

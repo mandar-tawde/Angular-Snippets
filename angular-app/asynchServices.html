@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="angular.js"></script>
+        <script src="event.min.js"></script>
+    </head>
+    
+    <body ng-app="main">
+        
+        <script>
+             angular.module('main',[])
+                    .service('numberStore',['$log','$http',function($log,$http) {
+
+                        this.get = function(number) {
+                            $http.get("http://numbersapi.com/" + number)
+                                 .then(function(response) {
+                                     $log.log("Inside service " + response.data);
+                                     return response.data;
+                                 })    
+                        }
+
+                        
+                        this.getAsynch = function(number,callback) {
+                            $http.get("http://numbersapi.com/" + number)
+                                 .then(function(response) {
+                                     callback(response);
+                                 })    
+                        }
+                    }])
+                    .controller('numberController',['$scope','numberStore', function($scope,numberStore) {
+                        $scope.numDescription1 =numberStore.get(13);
+                        numberStore.getAsynch(13,function(response) {
+                            $scope.numDescription2 = response.data;
+                        });
+                    }])
+        </script>
+       
+
+        <section ng-controller="numberController">
+            <h1>numDescription1</h1>
+            <h2>{{numDescription1}}</h2>
+            <br>
+            <h1>numDescription2</h1>
+            <h2>{{numDescription2}}</h2>
+        </section>
+    </body>
+</html>

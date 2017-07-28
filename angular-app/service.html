@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script src="angular.js"></script>
+    </head>
+
+    <body ng-app="servicesModule">
+        
+        <script>
+            angular.module('servicesModule', [])
+                   .controller("servicesController", function($scope,$timeout,$log) {
+                        $scope.name = "Mandar";
+                        $scope.companyName = "Swabhav";
+
+                        $timeout(function() {
+                            $scope.companyName = "AurionPro";
+                        }, 3000);
+
+                        $log.log('This is log.');
+                        $log.error('This is error.');
+                        $log.info('This is info.');
+                        $log.warn('This is warning.');
+                        $log.debug('This is debugging.');
+                    });
+        </script>
+
+        <section ng-controller="servicesController">
+            <h1>{{name + " @ " + companyName}}</h1>
+        </section>
+    </body>
+</html>

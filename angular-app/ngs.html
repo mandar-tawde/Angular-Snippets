@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script src="angular.js"></script>
+    </head>
+
+    <body ng-app="module">
+
+        <script>
+             angular.module('module',[])
+                    .controller('controller',['$scope','$timeout',function($scope,$timeout) {
+                        $timeout(function () {
+                            $scope.name = "Mandar";
+                        },5000)
+                    }])
+        </script>
+
+        <section ng-controller="controller">
+            <div ng-class=""
+        </section>
+    </body>
+</html>

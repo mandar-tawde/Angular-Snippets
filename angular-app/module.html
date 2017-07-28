@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script src="angular.js"></script>
+    </head>
+    <body ng-app="moduleA">
+
+        <script>
+            angular.module('moduleA', ['moduleB'])
+                   .controller('firstController', function($scope, $rootScope) {
+                        console.log("First Controller created");
+
+                        $rootScope.foo = "This is foo";
+
+                        $scope.customer = {
+                            fName : "Mandar",
+                            lName : "Tawde"
+                        };
+                });
+            
+            angular.module('moduleB', [])
+                   .controller('secondController', function($scope, $rootScope) {
+                        console.log("Second Controller created");
+
+                        $scope.invoice = {
+                            description : "Book purchase details",
+                            totalPrice : 1200
+                        };
+                   });
+        </script>
+
+        <section ng-controller="firstController">
+            <h1>{{customer.fName + " " + customer.lName}}</h1>
+        </section>
+
+        <section ng-controller="secondController">
+            <h1>{{invoice.description}}</h1>
+            <h1>{{invoice.totalPrice}}</h1>
+        </section>
+
+        <section>
+            <h1>{{foo}}</h1>
+        </section>
+    </body>
+</html>

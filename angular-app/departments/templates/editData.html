@@ -1,0 +1,14 @@
+<article>
+    <form action="#/" align="right" style="margin: 3px;">
+        <input type="submit" value="Display Department Information" />
+    </form>
+
+    <h1>Edit Department Information</h1><br><br>
+    <div style="border: 2px solid black;">
+        <h3>ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:- <input type="text" style="height: 30px;" ng-model="department.id"></h3><br>
+        <h3>Name &nbsp;&nbsp;&nbsp;:- <input type="text" style="height: 30px" ng-model="department.name"></h3><br>
+        <h3>Location :- <input type="text" style="height: 30px" ng-model="department.location"></h3><br>
+        <button id="updateBtn" style="width: 90px; margin-bottom: 10px;" ng-click="updateClicked()">Update</button><br>
+    </div>
+    <label ng-bind="message" style="color: green"></label>
+</article>

@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
+        <script src="angular.js"></script>  
+    </head>
+    
+    <body ng-app="gameModule">
+        <script src="jquery-3.2.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+        <script>
+             angular.module("gameModule",[])
+                    .controller("gameController",["$scope","$window","$timeout","$interval",function($scope,$window,$timeout,$interval) {
+                        
+                        $scope.secretNumber = Math.round((Math.random() * 10) * 10);
+                        $scope.numberOfGuesses = 0;
+                        $scope.isClicked = false;
+
+                        $scope.width = $window.innerWidth/20;
+
+                        $scope.minutes = 3;
+                        $scope.seconds = 0;
+
+                        var minutes = 0;
+                        var seconds = 0;
+
+                        updateTime = function() {
+                            
+                            if($scope.seconds == 0) {
+                                $scope.minutes --;
+                                $scope.seconds = 60;
+                            }
+
+                            if($scope.minutes == 0) {
+                                $interval.cancel(timer);
+                                var confirmation = confirm("Game Over\nTime's up!\nNumber of guess :- " + $scope.numberOfGuesses + "\nDo you want play the game again ?");
+                                if(confirmation)
+                                    $window.location.reload();                                
+                            }
+
+                            if(seconds == 60) {
+                                minutes ++;
+                                seconds = 0;
+                            }
+
+                            $scope.seconds --;
+                            seconds++;
+                        };
+
+                        var timer = $interval(updateTime,1000);
+
+                        $scope.circles = function() {
+                            var circles = [];
+
+                            for(var i=1;i<=100;i++) {
+                                circles.push(i);
+                            }
+
+                            return circles;
+                        }
+
+                        $scope.guess = function(event) {
+                            $scope.numberOfGuesses ++;
+                            
+                            $timeout(function() {
+
+                                if(event.target.id == $scope.secretNumber) {
+                                    var confirmation = confirm("Congratulations\nNumber of guesses :- " + $scope.numberOfGuesses + "\nTime Taken :- " + minutes + " : " + seconds + "\nDo you want play the game again ?");
+                                    $interval.cancel(timer);
+                                    if(confirmation)
+                                        $window.location.reload();
+                                }
+                            },500);
+                        }
+                    }]);
+        </script>
+
+        <section ng-controller="gameController">
+            
+            <div class="panel panel-primary">
+                <div class="panel-heading">Find the target position</div>
+                <div class="panel-body">
+                    <div class="container">
+                        <div class="row">
+                    
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                <h4>Target &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:-
+                                <img src="green.png" width="50px" height="50px" style="margin: 3px"><h4>
+                                <h4>Before Target :-
+                                <img src="red.png" width="50px" height="50px" style="margin: 3px"></h4>
+                                <h4>After Target &nbsp;&nbsp;&nbsp;:-
+                                <img src="blue.png" width="50px" height="50px" style="margin: 3px"></h4>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-lg-offset-1">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" style="background-color: #283747">Complete the game in 3 minutes</div>
+                                    <div class="panel-body" style="text-align: center">
+                                        <h1>0{{minutes}} : {{seconds<10 ? '0' : ''}} {{seconds}} </h1>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" style="background-color: #283747">Number of Guesses</div>
+                                    <div class="panel-body" style="text-align: center">
+                                        <h1>{{numberOfGuesses<10 ? '0' : ''}}{{numberOfGuesses}} </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+            <div align="center">
+                <img id="{{number}}" ng-src="{{isClicked == false && 'gray.png'  || number == secretNumber && 'green.png' || number < secretNumber && 'red.png' || 'blue.png'}}" ng-repeat="number in circles()" width="{{width-8}}px" height="{{width-8}}px" style="margin: 3px" ng-click="isClicked = true; guess($event)"> 
+            </div>
+        </section>
+    </body>
+</html>

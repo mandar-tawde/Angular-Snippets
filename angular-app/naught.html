@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
+        <script src="angular.js"></script>  
+    </head>
+    <body ng-app="naughtModule">
+        <script src="jquery-3.2.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+        <script>
+             angular.module('naughtModule',[])
+                    .controller('naughtController',['$scope', function($scope) {
+                        $scope.naughts = [];
+                        $scope.naught = {
+                            title : "",
+                            description : ""
+                        }
+
+                        $scope.addNaught = function() {
+                            copyNaught = angular.copy($scope.naught)
+                            $scope.naughts.push(copyNaught);
+                        }
+                    }])
+        </script>
+
+        <section ng-controller="naughtController">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Fill the fields</div>
+                <div class="panel-body">
+                    Title &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    :- <input type="text" ng-model="naught.title"><br><br>
+                    Description :- <input type="text" ng-model="naught.description"><br><br>
+                    <button ng-click="addNaught()">Add</button>
+                </div>
+            </div>
+
+            <div  style="width:fit-content; margin:0 auto;">
+                <div class="panel panel-info" ng-repeat="naught1 in naughts" style="min-width: 500px;">
+                    <div class="panel-heading">{{naught1.title}}</div>
+                    <div class="panel-body">{{naught1.description}}</div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

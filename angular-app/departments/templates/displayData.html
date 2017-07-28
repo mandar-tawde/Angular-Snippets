@@ -1,0 +1,32 @@
+<article>
+    <form action="#/addData" align="right" style="margin: 3px;">
+        <input type="submit" value="Add Department" />
+    </form>
+
+    <h3>Departments Information</h3><br>
+    <div class="table-responsive" style="text-align: left; border: 2px solid black;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="index in departmentIndexes">
+                <tr>
+                    <td>{{departments[index].id}}</td>
+                    <td>{{departments[index].name}}</td>
+                    <td>{{departments[index].location}}</td>
+                    <td><input type="image" src="delete.ico" width="30px" height="30px" id="{{index}}" ng-click="deletePressed($event)"></td>
+                    <td>
+                        <a href="#/edit/{{index}}"><img src="edit.ico" width="30px" height="30px"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-bind="message" style="color: green"></div>
+</article>

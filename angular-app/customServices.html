@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
+        <script src="angular.js"></script>  
+    </head>
+    
+    <body ng-app="main">
+        <script src="jquery-3.2.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+        <script>
+             angular.module("main",[])
+                    .factory('dataStore',['$log',function($log) {
+                        $log.log("Inside DataStore");
+
+                        var obj = {};
+
+                        obj.get = function() {
+                            return [{id:101, name:'mandar'},{id:102, name:'pankaj'}];
+                        }
+
+                        return obj;
+                    }])
+                    .controller("controller1",["$scope","dataStore",function($scope,dataStore) {
+                        $scope.customers = dataStore.get();
+                    }])
+                    .controller("controller2",["$scope","dataStore",function($scope,dataStore) {
+                        $scope.employees = dataStore.get();
+                    }]);
+        </script>
+
+        <section ng-controller="controller1">
+                <h1>Customer Data</h1>
+                <div class="table-responsive">          
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="customer in customers">
+                            <tr>
+                                <td>{{customer.id}}</td>
+                                <td>{{customer.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section ng-controller="controller2">
+                <h1>Employee Data</h1>
+                <div class="table-responsive">          
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="employee in employees">
+                            <tr>
+                                <td>{{employee.id}}</td>
+                                <td>{{employee.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

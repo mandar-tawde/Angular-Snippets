@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <script src="angular.js"></script>
+        <script src="event.min.js"></script>
+    </head>
+    
+    <body ng-app="profileModule">
+       
+
+        <section ng-controller="profileController">
+            <button id="load" ng-click="loadProfile()">Load</button><br><br>
+            <img ng-src={{profile.url}} style="width: 100px; height: 100px;"><br>
+            <label for="name">Name : {{profile.name}}</label><br>
+            <label for="name">Age : {{profile.age}}</label><br>
+            <label for="name">Experience : {{profile.experience}}</label><br>
+        </section>
+    </body>
+</html>
